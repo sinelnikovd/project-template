@@ -89,7 +89,7 @@ gulp.task('clean', function(cb) {
 });
 
 //css + js
-gulp.task('build', ['clean'], function () {
+gulp.task('cssjsbuild', ['clean'], function () {
 	return gulp.src(paths.devDir + '*.html')
 		.pipe( useref() )
 		.pipe( gulpif('*.js', uglify()) )
@@ -106,16 +106,16 @@ gulp.task('imgBuild', ['clean'], function() {
 
 //copy fonts to outputDir
 gulp.task('fontsBuild', ['clean'], function() {
-	return gulp.src(paths.devDir + '/fonts/*')
+	return gulp.src(paths.devDir + 'fonts/**/*')
 		.pipe(gulp.dest(paths.outputDir + 'fonts/'));
 });
 
 //ftp
 gulp.task('send', function() {
 	var conn = ftp.create({
-		host:     '77.120.110.166',
-		user:     'alexlabs',
-		password: 'Arj4h00F9x',
+		host:     'sinelnikovd.ru',
+		user:     'sinelnikovd',
+		password: 'pass',
 		parallel: 5
 	});
 
@@ -137,4 +137,4 @@ gulp.task('send', function() {
 gulp.task('default', ['browser-sync', 'watch', 'pug', 'sass', 'scripts']);
 
 //production
-gulp.task('build', ['build', 'imgBuild', 'fontsBuild']);
+gulp.task('build', ['cssjsbuild', 'imgBuild', 'fontsBuild']);
