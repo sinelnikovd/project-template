@@ -1,4 +1,4 @@
 /node_modules
-/dev/_assets
-/app/_assets
+/dev
+/src/_assets
 /build
