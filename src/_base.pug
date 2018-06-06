@@ -2,32 +2,45 @@ include _assets/bemto/bemto
 
 include head/head
 
+//-include header/header
+//-include footer/footer
+
+block classname
+  -var navItemActive = 0;
+
 doctype html
 html(lang="ru")
 
-	block head
-		head
-			+head({
-				"title": "Project Template",
-				"author": "Sinelnikov Dmitriy",
-				"description": "My default project template."
-			})
-			
-		+b.BODY.page
-			+e.wrap
-				block header
-					header header
-				block content
-					div content
+  block head
+    head
+      +head({
+        "title": "Project Template",
+        "author": "Sinelnikov Dmitriy",
+        "description": "My default project template."
+      })
 
-				block footer
-					footer footer
-				
-			block vendors
-				// build:js js/vendor.js
-				script( src="../dev/_assets/jquery/dist/jquery.min.js")
-				// endbuild
-			block scripts
-				// build:js js/main.js
-				script( src="js/main.js")
-				// endbuild
+    +b.BODY.page
+      +e.wrap
+        +e.content
+          block header
+            header header
+
+          block content
+            div content
+
+        +e.footer
+          block footer
+            footer footer
+
+      block popups
+        .popup
+
+      block vendors
+        // build:js js/vendor.js
+        script( src="_assets/jquery/dist/jquery.min.js")
+        // endbuild
+
+      block scripts
+        // build:js js/main.js
+        script( src="js/main.js")
+        // endbuild

@@ -5,11 +5,54 @@
 @import "_base/reset"
 @import "_base/vars"
 @import "_base/fonts"
-@import "_base/grid"
+//@import "_base/sprite"
 
 //
 // Blocks
 //
 
 body
-  background-color: #ddd
+  min-width: 320px
+  color: $cb
+
+img
+  max-width: 100%
+  height: auto
+
+.container
+  max-width: 1170px
+  margin: 0 auto
+  padding: 0 15px
+
+  +rlg
+    max-width: 960px
+  +rmd
+    max-width: 720px
+  +rsm
+    max-width: 540px
+
+.page
+  &__wrap
+    display: flex
+    flex-direction: column
+    min-height: 100vh
+    overflow-x: hidden
+  &__content
+    flex: 1 1 auto
+  &__footer
+    flex: 0 1 auto
+
+
+//+sprites($icon-sprites)
+
+//.icon
+//  display: inline-block
+//  vertical-align: middle
+
+//.icon_vk
+//  &:hover
+//    +sprite($icon-vk-hover)
+
+
+//@import "header/header"
+//@import "footer/footer"

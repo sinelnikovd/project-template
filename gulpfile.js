@@ -6,6 +6,7 @@ var gulp = require('gulp'),
 		concat = require('gulp-concat'),
 		plumber = require('gulp-plumber'),
 		autoprefixer = require('gulp-autoprefixer'),
+		gcmq = require('gulp-group-css-media-queries'),
 		sourcemaps = require('gulp-sourcemaps'),
 		imagemin = require('gulp-imagemin'),
 		browserSync = require('browser-sync').create(),
@@ -18,6 +19,8 @@ var useref = require('gulp-useref'),
 		rimraf = require('rimraf'),
 		notify = require('gulp-notify'),
 		ftp = require('vinyl-ftp');
+
+var spritesmith = require('gulp.spritesmith');
 
 var paths = {
 			src: 'src/',
@@ -48,6 +51,7 @@ gulp.task('sass', function() {
 			browsers: ['last 10 versions'],
 			cascade: true
 		}))
+		.pipe(gcmq())
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(paths.dev + 'css/'))
 		.pipe(browserSync.stream());
@@ -63,11 +67,33 @@ gulp.task('scripts', function() {
 		.pipe(gulp.dest(paths.dev + 'js/'));
 });
 
+/*//sprite compile
+gulp.task('sprite', function() {
+	 var spriteData = gulp.src(paths.src + 'sprite/*.png')
+	.pipe(spritesmith({
+		imgName: 'sprite.png',
+		cssName: 'sprite.sass',
+		imgPath: '../img/sprite.png',
+		cssSpritesheetName: 'icon',
+		cssVarMap: function (sprite) {
+			sprite.name = 'icon_' + sprite.name;
+		}
+	}))
+
+	var imgStream = spriteData.img
+		.pipe(gulp.dest(paths.dev + 'img/'));
+
+	var cssStream = spriteData.css
+		.pipe(gulp.dest(paths.src + '_base/'));
+
+});*/
+
 //watch
 gulp.task('watch', function() {
 	gulp.watch(paths.src + '**/*.pug', ['pug']);
 	gulp.watch(paths.src + '**/*.sass', ['sass']);
 	gulp.watch(paths.src + '**/*.js', ['scripts']);
+	//gulp.watch(paths.src + 'sprite/*.png', ['sprite']);
 });
 
 //server
@@ -139,7 +165,7 @@ gulp.task('send', function() {
 
 
 //default
-gulp.task('default', ['browser-sync', 'watch', 'pug', 'sass', 'scripts']);
+gulp.task('default', ['browser-sync', 'watch', 'pug'/*, 'sprite'*/, 'sass', 'scripts']);
 
 //production
 gulp.task('build', ['cssjsbuild', 'imgBuild', 'fontsBuild']);
