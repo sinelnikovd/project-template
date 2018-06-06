@@ -2,3 +2,8 @@
 /dev
 /src/_assets
 /build
+package-lock.json
+*.zip
+pages
+ftp_user
+*.log
